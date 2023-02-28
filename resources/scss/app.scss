@@ -1,0 +1,13 @@
+@use '/resources/scss/partials/tableStyle.scss';
+@use '/resources/scss/partials/loginStyle.scss';
+@import '~bootstrap/scss/bootstrap';
+
+
+header nav{
+    background-color: #a970ff !important;
+}
+
+main{
+    height: calc(100vh - 56px);
+    background-color: #f4f7fa;
+}
