@@ -10,6 +10,8 @@
             <h2 class="card-title">{{$project->title}}</h2>
             <p class="card-text">{{$project->description}}</p>
             <h6 class="card-subtitle mb-2 text-muted">{{$project->creation_date}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Tipo di progetto: {{$project->type->name}}</h6> 
+            
         </div>
         <div class="button-group mb-4">
             <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-info">Edit</a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -33,7 +34,7 @@ class ProjectController extends Controller
      */
     public function create(Project $project)
     {
-        return view('admin.projects.creation', compact('project'));
+        return view('admin.projects.creation', compact('project'), ['types' => Type::all()]);
     }
 
     /**
@@ -49,7 +50,8 @@ class ProjectController extends Controller
             'title'=>'required|unique:projects|min:10|max:200',
             'description'=>'required|min:25|max:1000',
             'image'=>'url',
-            'creation_date'=>'date|before:tomorrow'
+            'creation_date'=>'date|before:tomorrow',
+            'type_id' => 'required|exists:types,id'
         ]);
         $newProject = new Project();
         $newProject->fill($data);
@@ -82,7 +84,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        return view('admin.projects.edit', compact('project'), ['types' => Type::all()]);
     }
 
     /**
@@ -99,7 +101,8 @@ class ProjectController extends Controller
             'title'=> ['required', Rule::unique('projects')->ignore($project->id) ],
             'description'=>'required|min:25|max:2000',
             'image'=>'url',
-            'creation_date'=>'date:d-m-Y|before:tomorrow'
+            'creation_date'=>'date:d-m-Y|before:tomorrow',
+            'type_id' => 'required|exists:types,id'
         ]);
         $project->slug = Str::slug($project->title);
         $project->update($data);

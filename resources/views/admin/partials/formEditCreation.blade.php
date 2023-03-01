@@ -8,7 +8,19 @@
     @error('title')
     <div class="invalid-feedback">{{$message}}</div>
     @enderror
-                
+    
+    <label for="floatingSelect">Seleziona il tipo di progetto</label>
+    <select name="type_id" class="form-select my-2">
+        @foreach ($types as $type)
+            <option value="{{$type->id}}" {{old('type_id', $type->type_id) == $type->id ? 'selected' : ''}}>{{$type->name}}</option>
+        @endforeach
+    </select>
+
+    @error('title')
+    <div class="invalid-feedback">{{$message}}</div>
+    @enderror
+
+
     <label for="description" class="form-label">Descrizione</label>
     <textarea name="description" class="form-control @error('description') is-invalid @enderror">{{old('description', $project->description)}}</textarea>
     @error('description')
